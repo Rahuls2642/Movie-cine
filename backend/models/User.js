@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
-import isEmail from "validator/lib/isEmail.js";
-import bcrypt from "bcryptjs";
+
+import bcrypt from "bcrypt";
+
 
 const UserSchema = new Schema(
   {
@@ -12,10 +13,7 @@ const UserSchema = new Schema(
       unique: true,
       lowercase: true,
       trim: true,
-      validator: {
-        validator: (v) => isEmail(v),
-        message: "Invalid email format",
-      },
+     
     },
     password: { type: String, required: true, minlength: 6 },
   },
@@ -41,4 +39,4 @@ UserSchema.methods.toJSON = function () {
 };
 
 
-export default mongoose.model("User", userSchema);
+export default mongoose.model("User", UserSchema);
