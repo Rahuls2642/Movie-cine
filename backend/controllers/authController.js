@@ -14,8 +14,7 @@ export const registerUser = asyncHandler(async (req, res) => {
    const normalEmail = email.toLowerCase().trim();
     const existingUser = await User.findOne({email: normalEmail});
     if (existingUser) {
-        res.status(400);
-        throw new Error('User already exists with this email');
+        return res.status(404).json({ message: 'Email already registered' });
     }  
     const user = new User({name, email:normalEmail, password});
     await user.save();
@@ -32,13 +31,11 @@ export const loginUser = asyncHandler(async (req, res) => {
     const normalEmail = email.toLowerCase().trim();
     const user = await User.findOne({email: normalEmail});
     if (!user) {
-        res.status(400);
-        throw new Error('Invalid email or password');
+         return res.status(404).json({ message: 'Invalid Email or password' });
     }
     const isMatch = await user.comparePassword(password);       
     if (!isMatch) {
-        res.status(400);
-        throw new Error('Invalid email or password');
+        return res.status(404).json({ message: 'Invalid Email or password' });
     }
     const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: '1d'});
     res.json({token, user: user.toJSON()});        
