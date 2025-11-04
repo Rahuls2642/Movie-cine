@@ -2,7 +2,8 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 import bcrypt from "bcrypt";
-
+import { validate } from "isemail";
+import validator from "validator";
 
 const UserSchema = new Schema(
   {
@@ -13,7 +14,10 @@ const UserSchema = new Schema(
       unique: true,
       lowercase: true,
       trim: true,
-     
+      validate: {
+        validator: (v) => validator.isEmail(v), // Using the validator library's isEmail method
+        message: (props) => `${props.value} is not a valid email!`,
+      },
     },
     password: { type: String, required: true, minlength: 6 },
   },
@@ -23,20 +27,19 @@ const UserSchema = new Schema(
 );
 
 UserSchema.pre("save", async function (next) {
-    if (!this.isModified("password")) return next();
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-    next();
+  if (!this.isModified("password")) return next();
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+  next();
 });
 UserSchema.methods.comparePassword = async function (candidatePassword) {
-    return await bcrypt.compare(candidatePassword, this.password);
-}
-
-UserSchema.methods.toJSON = function () {
-    const obj = this.toObject();
-    delete obj.password;
-    return obj;
+  return await bcrypt.compare(candidatePassword, this.password);
 };
 
+UserSchema.methods.toJSON = function () {
+  const obj = this.toObject();
+  delete obj.password;
+  return obj;
+};
 
 export default mongoose.model("User", UserSchema);

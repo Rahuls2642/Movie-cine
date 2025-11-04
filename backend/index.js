@@ -3,8 +3,10 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes.js';
-// import watchListRoutes from './routes/watchListRoutes.js';
-// import watchedRoutes from './routes/watchedRoutes.js';
+import watchListRoutes from './routes/watchListRoutes.js';
+import watchedRoutes from './routes/watchedRoutes.js';
+import reviewsRoutes from './routes/reviewsRoutes.js';
+
 dotenv.config();
 
 const app = express();
@@ -17,8 +19,9 @@ app.get('/', (req, res) => {
 })
 //Routes
 app.use('/api/auth', authRoutes);
-// app.use('/api/watchlist', watchListRoutes);
-// app.use('/api/watched', watchedRoutes);
+app.use('/api/watchlist', watchListRoutes);
+app.use('/api/watched', watchedRoutes);
+app.use('/api/reviews', reviewsRoutes);
 
 //database connection
 mongoose.connect(process.env.MONGODB_URL).then(() => {

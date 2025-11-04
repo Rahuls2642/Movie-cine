@@ -3,7 +3,9 @@ import mongoose from "mongoose";
 const {Schema} = mongoose;
 const WatchedMoviesSchema = new Schema({
     user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    movies: [{ type:Number,require:true }] 
+    movieId: { type:Number,require:true } ,
+    title: { type: String  },
+    posterPath: { type: String  }   
 }, {
     timestamps: true
 }); 
