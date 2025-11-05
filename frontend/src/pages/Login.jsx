@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import API from "../api/axios";
 
@@ -75,11 +76,13 @@ export default function LoginForm() {
               </div>
               <div className="text-sm text-gray-400">
                 New here?{" "}
-                <span onClick={()=>{
-                    window.location.href = "/register"
-                }} className="text-red-500 font-semibold cursor-pointer">
-                  Register
-                </span>
+                <span
+      onClick={() => navigate("/register")}
+      className="text-red-500 font-semibold cursor-pointer"
+    >
+      Register
+    </span>
+                
               </div>
             </div>
           </div>
