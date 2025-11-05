@@ -1,9 +1,11 @@
 
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import API from "../api/axios";
 
 export default function Register() {
+   const navigate = useNavigate();
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -173,9 +175,12 @@ export default function Register() {
          
           <div className="mt-6 border-t border-neutral-800 pt-4 text-center text-sm text-gray-400">
             Already have an account?{" "}
-            <button onClick={()=>{
-                window.location.href = "/login"
-            }} className="text-red-500 font-semibold hover:text-red-300">Sign in</button>
+            <button
+      onClick={() => navigate("/login")}
+      className="text-red-500 font-semibold hover:text-red-300"
+    >
+      Sign in
+    </button>
           </div>
         </div>
       </div>
