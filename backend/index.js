@@ -16,8 +16,7 @@ app.use(express.static(buildPath));
 app.use(cors());
 app.use(cors({
   origin: 'http://localhost:5173' ,
-  origin:'http://localhost:5174',
-  origin:'https://movie-cine-frontend.onrender.com'
+  origin:'http://localhost:5174'
 }))
 
 app.get('/', (req, res) => {
