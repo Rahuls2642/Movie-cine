@@ -6,12 +6,14 @@ import authRoutes from './routes/authRoutes.js';
 import watchListRoutes from './routes/watchListRoutes.js';
 import watchedRoutes from './routes/watchedRoutes.js';
 import reviewsRoutes from './routes/reviewsRoutes.js';
-
+import path from 'path'
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const buildPath = path.join(__dirname, 'dist')
 app.use(express.json());
+app.use(express.static(buildPath));
 app.use(cors());
 app.use(cors({
   origin: 'http://localhost:5173' ,
@@ -29,6 +31,9 @@ app.use('/api/watched', watchedRoutes);
 app.use('/api/reviews', reviewsRoutes);
 
 //database connection
+app.get('*', (req, res) => {
+  res.sendFile(path.join(buildPath, 'index.html'));
+});
 mongoose.connect(process.env.MONGODB_URL).then(() => {
 app.listen(PORT, () => {
   console.log(`server is running on port ${PORT} and database is connected`);
