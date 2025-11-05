@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
+
+import API from "../api/axios";
 
 export default function LoginForm() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -34,7 +35,7 @@ export default function LoginForm() {
     setError("");
     setSuccessMsg("");
     try {
-      const res = await axios.post("http://localhost:3000/api/auth/login", {
+      const res = await API.post("/auth/login", {
         email: form.email.trim(),
         password: form.password,
       });
