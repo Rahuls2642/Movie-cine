@@ -49,8 +49,9 @@ export default function Register() {
       if (res.data?.token) {
         localStorage.setItem("token", res.data.token);
       }
-      setSuccessMsg("Account created. You are logged in.");
+      setSuccessMsg("Account created. Loggin to your account...");
       setForm({ name: "", email: "", password: "" });
+      setTimeout(() => (window.location.href = "/login"), 1000);
     } catch (err) {
         console.log(err)
       setError(
@@ -171,7 +172,9 @@ export default function Register() {
          
           <div className="mt-6 border-t border-neutral-800 pt-4 text-center text-sm text-gray-400">
             Already have an account?{" "}
-            <button className="text-red-500 font-semibold hover:text-red-300">Sign in</button>
+            <button onClick={()=>{
+                window.location.href = "/login"
+            }} className="text-red-500 font-semibold hover:text-red-300">Sign in</button>
           </div>
         </div>
       </div>

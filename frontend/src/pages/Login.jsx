@@ -74,7 +74,9 @@ export default function LoginForm() {
               </div>
               <div className="text-sm text-gray-400">
                 New here?{" "}
-                <span className="text-red-500 font-semibold cursor-pointer">
+                <span onClick={()=>{
+                    window.location.href = "/register"
+                }} className="text-red-500 font-semibold cursor-pointer">
                   Register
                 </span>
               </div>
