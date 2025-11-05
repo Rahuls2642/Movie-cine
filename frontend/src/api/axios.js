@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://movie-cine.onrender.com/api",// backend URL
+  baseURL: "https://movie-cine-frontend.onrender.com/api",// backend URL
   withCredentials: false,
 });
 
